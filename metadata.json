@@ -1,0 +1,6 @@
+{
+  "name": "Pimsleur AI Simulator",
+  "description": "Experience a simulated Pimsleur language lesson powered by Gemini.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
