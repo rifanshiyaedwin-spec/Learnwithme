@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { generateChatResponse } from "./lib/gemini";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./components/ui/card";
+import { Card, CardContent } from "./components/ui/card";
 import { ScrollArea } from "./components/ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
-import { Play, Send, Loader2, Volume2, Mic } from "lucide-react";
+import { Avatar, AvatarFallback } from "./components/ui/avatar";
+import { Play, Send, Loader2, Volume2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 type Message = {
@@ -35,9 +35,11 @@ export default function App() {
     setIsLoading(true);
 
     try {
-      const response = await generateChatResponse(language, [], "Hello, I am ready to start my first lesson.");
+      const initialMessage = "Hello, I am ready to start my first lesson.";
+      const response = await generateChatResponse(language, [], initialMessage);
       setMessages([
-        { id: Date.now().toString(), role: "model", text: response || "Let's begin." },
+        { id: Date.now().toString() + "-user", role: "user", text: initialMessage },
+        { id: Date.now().toString() + "-model", role: "model", text: response || "Let's begin." },
       ]);
       speak(response || "Let's begin.", language);
     } catch (error) {
@@ -104,7 +106,7 @@ export default function App() {
         hindi: "hi-IN",
       };
       
-      const langCode = langMap[lang.toLowerCase()] || "en-US";
+      const langCode = langMap[lang.trim().toLowerCase()] || "en-US";
       
       // Stop any current speech
       window.speechSynthesis.cancel();
