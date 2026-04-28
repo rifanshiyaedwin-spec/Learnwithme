@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "UserProgress": {
+      "title": "User Progress",
+      "description": "Stores user progress for language lessons",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "ID of the user"
+        },
+        "language": {
+          "type": "string",
+          "description": "Language being learned"
+        },
+        "level": {
+          "type": "string",
+          "description": "Level of the learning"
+        },
+        "currentLesson": {
+          "type": "number",
+          "description": "Current lesson number"
+        },
+        "percentage": {
+          "type": "number",
+          "description": "Percentage completion of the language level"
+        },
+        "assessmentScore": {
+          "type": "number",
+          "description": "Score from the assessment"
+        },
+        "hasCertificate": {
+          "type": "boolean",
+          "description": "If the user has received a certificate for this language and level"
+        },
+        "updatedAt": {
+          "type": "object",
+          "description": "Timestamp of the last update"
+        }
+      },
+      "required": ["userId", "language", "level", "currentLesson", "percentage", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}/progress/{progressId}": {
+      "schema": { "$ref": "#/entities/UserProgress" },
+      "description": "A progress tracker for a user and a language."
+    }
+  }
+}
